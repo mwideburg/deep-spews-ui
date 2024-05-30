@@ -6,6 +6,7 @@ import { RootStackParamList } from './src/types/navigation';
 import Confirm from './src/components/confirm';
 import SignIn from './src/components/sign-in';
 import Trends from './src/components/trends';
+import Summary from './src/components/summary';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,6 +18,7 @@ function App() {
         <Stack.Screen name="Confirm" component={Confirm} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="Trends" component={Trends} />
+        <Stack.Screen name="Summary" component={Summary} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -63,7 +63,7 @@ export const confirm = async (userConfirm: UserConfirm): Promise<void> => {
 
 
 export const signIn = async (userSignIn: UserSignIn): Promise<void> => {
-    const endpoint = `${process.env.REACT_APP_AWS_DOMAIN}signin`;  // Replace with your actual endpoint URL
+    const endpoint = `https://s14bh1g6nl.execute-api.us-east-1.amazonaws.com/test/signin`;  // Replace with your actual endpoint URL
     console.log(endpoint)
     try {
         const response = await fetch(endpoint, {
