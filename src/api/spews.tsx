@@ -1,11 +1,8 @@
 import { authenticatedFetch } from "./auth";
 
 export const fetchTrends = async () => {
-    const response = await authenticatedFetch(`${process.env.REACT_APP_AWS_DOMAIN}/trends`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch trends');
-    }
-    return response.json();
+    const response = await authenticatedFetch(`${process.env.REACT_APP_AWS_DOMAIN}get-trends`);
+    return response;
   };
   
   export const fetchSummary = async (id: string) => {

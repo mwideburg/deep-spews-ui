@@ -3,4 +3,5 @@ export type RootStackParamList = {
     Confirm: undefined;
     SignIn: undefined;
     Trends: undefined;
+    Summary: {id: string};
   };

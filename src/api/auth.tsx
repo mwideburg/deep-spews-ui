@@ -63,7 +63,8 @@ export const confirm = async (userConfirm: UserConfirm): Promise<void> => {
 
 
 export const signIn = async (userSignIn: UserSignIn): Promise<void> => {
-    const endpoint = `${process.env.REACT_APP_AWS_DOMAIN}/signin`;  // Replace with your actual endpoint URL
+    const endpoint = `${process.env.REACT_APP_AWS_DOMAIN}signin`;  // Replace with your actual endpoint URL
+    console.log(endpoint)
     try {
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -73,13 +74,14 @@ export const signIn = async (userSignIn: UserSignIn): Promise<void> => {
             body: JSON.stringify(userSignIn),
         });
         const resJSON = await response.json()
-        if (!response.ok) {
+        const accessToken = resJSON["tokens"]["IdToken"]
+        const refreshToken = resJSON["tokens"]["RefreshToken"]
+
+        if (!accessToken) {
             throw new Error(resJSON);
         }
-        const data = await response.json();
-        const { accessToken, refreshToken } = data;
         await saveTokens(accessToken, refreshToken);
-        return data;
+        return resJSON;
         // Handle further actions like navigation or showing success message
     } catch (error) {
         console.error('Signin error:', error);
@@ -132,7 +134,8 @@ export const authenticatedFetch = async (url: string , options: any = {}) => {
   if (!accessToken) {
     throw new Error('No access token available');
   }
-
+  console.log(url)
+  console.log("fetching trends")
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -140,8 +143,9 @@ export const authenticatedFetch = async (url: string , options: any = {}) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-
-  if (response.status === 401 && refreshToken) {
+  const resJSON = await response.json()
+  console.log(resJSON)
+  if (resJSON.statusCode === 401 && refreshToken) {
     // Attempt to refresh tokens
     try {
       accessToken = await refreshTokens(refreshToken);
@@ -159,5 +163,5 @@ export const authenticatedFetch = async (url: string , options: any = {}) => {
     }
   }
 
-  return response;
+  return resJSON;
 };
