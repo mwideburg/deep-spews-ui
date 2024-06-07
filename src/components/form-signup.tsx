@@ -35,6 +35,7 @@ const SignupForm: React.FC = () => {
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
+        placeholderTextColor="#999"
       />
       <TextInput
         style={styles.input}
@@ -42,6 +43,7 @@ const SignupForm: React.FC = () => {
         value={email}
         keyboardType="email-address"
         onChangeText={setEmail}
+        placeholderTextColor="#999"
       />
       <TextInput
         style={styles.input}
@@ -49,6 +51,7 @@ const SignupForm: React.FC = () => {
         value={password}
         secureTextEntry
         onChangeText={setPassword}
+        placeholderTextColor="#999"
       />
       <TextInput
         style={styles.input}
@@ -56,6 +59,7 @@ const SignupForm: React.FC = () => {
         value={phoneNumber}
         keyboardType="phone-pad"
         onChangeText={setPhoneNumber}
+        placeholderTextColor="#999"
       />
       <Button title="Sign Up" onPress={onSubmit} />
       <TouchableOpacity onPress={navigateToSignIn}>

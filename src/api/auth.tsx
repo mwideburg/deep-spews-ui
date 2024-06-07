@@ -81,6 +81,7 @@ export const signIn = async (userSignIn: UserSignIn): Promise<void> => {
             throw new Error(resJSON);
         }
         await saveTokens(accessToken, refreshToken);
+        await AsyncStorage.setItem('loggedIn', 'true');
         return resJSON;
         // Handle further actions like navigation or showing success message
     } catch (error) {
@@ -97,7 +98,7 @@ export const getTokens = async () => {
 };
 // Function to handle token refresh
 const refreshTokens = async (refreshToken: string) => {
-    const response = await fetch(`${process.env.REACT_APP_AWS_DOMAIN}/auth/refresh`, {
+    const response = await fetch(`https://s14bh1g6nl.execute-api.us-east-1.amazonaws.com/test/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -144,10 +145,11 @@ export const authenticatedFetch = async (url: string , options: any = {}) => {
     },
   });
   const resJSON = await response.json()
-  console.log(resJSON)
+  console.log("RESPONSE", resJSON)
   if (resJSON.statusCode === 401 && refreshToken) {
     // Attempt to refresh tokens
     try {
+      console.log("refreshing token")
       accessToken = await refreshTokens(refreshToken);
       const retryResponse = await fetch(url, {
         ...options,
@@ -156,7 +158,7 @@ export const authenticatedFetch = async (url: string , options: any = {}) => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      return retryResponse;
+      return retryResponse.json();
     } catch (error) {
       await removeTokens();
       throw new Error('Authentication failed, please log in again.');

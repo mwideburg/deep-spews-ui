@@ -27,6 +27,7 @@ const SignIn: React.FC = () => {
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
+        placeholderTextColor="#999"
       />
       <TextInput
         style={styles.input}
@@ -34,6 +35,7 @@ const SignIn: React.FC = () => {
         value={password}
         secureTextEntry
         onChangeText={setPassword}
+        placeholderTextColor="#999"
       />
       <Button title="Sign In" onPress={onSignIn} />
     </View>

@@ -30,12 +30,14 @@ const Confirm: React.FC = () => {
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
+        placeholderTextColor="#999"
       />
       <TextInput
         style={styles.input}
         placeholder="Verification Code"
         value={verificationCode}
         onChangeText={setVerificationCode}
+        placeholderTextColor="#999"
       />
       <Button title="Confirm" onPress={onConfirm} />
     </View>
